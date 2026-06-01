@@ -1,58 +1,75 @@
-import { DeployButton } from "@/components/deploy-button";
-import { EnvVarWarning } from "@/components/env-var-warning";
-import { AuthButton } from "@/components/auth-button";
-import { Hero } from "@/components/hero";
 import { ThemeSwitcher } from "@/components/theme-switcher";
-import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
-import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
-import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
+import Image from "next/image";
+import classicPainting from './classic-painting.png';
+import { createClient } from "@/lib/supabase/client";
 import { Suspense } from "react";
 
-export default function Home() {
+async function Articles() {
+  const supa = await createClient()
+
+  const { data : posts, error } = await supa.from("articles").select("id, title, slug, authors:author_id(name)").limit(10)
+  console.log(posts)
+
+  if (error) {
+    console.log(error)
+  }
+
+  return (
+      <div className="grid grid-cols-1 md:grid-cols-3">
+        {posts?.map((post) => {
+          
+          {/* @ts-ignore */}
+          const authorName = post.authors?.name
+
+          return (
+          <Link key={post.id} href={`/articles/${post.slug}`}>
+            <div className="p-4 border rounded-lg shadow-sm">
+              <h2 className="text-xl font-bold">{post.title}</h2>
+              <h2>
+                By: {authorName}
+              </h2>
+            </div>
+          </Link>
+        )})}
+      </div>
+  )
+}
+
+export default async function Home() {
+  
+
   return (
     <main className="min-h-screen flex flex-col items-center">
-      <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-            <div className="flex gap-5 items-center font-semibold">
-              <Link href={"/"}>Next.js Supabase Starter</Link>
-              <div className="flex items-center gap-2">
-                <DeployButton />
-              </div>
-            </div>
-            {!hasEnvVars ? (
-              <EnvVarWarning />
-            ) : (
-              <Suspense>
-                <AuthButton />
-              </Suspense>
-            )}
-          </div>
-        </nav>
-        <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
-          <Hero />
-          <main className="flex-1 flex flex-col gap-6 px-4">
-            <h2 className="font-medium text-xl mb-4">Next steps</h2>
-            {hasEnvVars ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-          </main>
+      {/* Hero */}
+      <div className="relative w-full h-64 overflow-hidden">
+        {/* 1. The Image (Base layer) */}
+        <Image 
+          src={classicPainting} 
+          alt="classical painting" 
+          fill={true} 
+          className="relative z-0 object-cover object-center" 
+          priority
+        />
+        
+        {/* 2. The Tint Overlay (Middle layer) */}
+        <div className="absolute inset-0 z-10 bg-black/40 mix-blend-multiply" />
+        
+        {/* 3. The Text Container (Top layer) */}
+        <div className="absolute inset-0 z-20 flex items-center justify-center text-white">
+          <h1 className="text-4xl font-bold tracking-wide drop-shadow-lg">
+            Aaron Cantu's Blog
+          </h1>
         </div>
-
-        <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-          <p>
-            Powered by{" "}
-            <a
-              href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-              target="_blank"
-              className="font-bold hover:underline"
-              rel="noreferrer"
-            >
-              Supabase
-            </a>
-          </p>
-          <ThemeSwitcher />
-        </footer>
       </div>
+
+      {/* Article Display */}
+      <Suspense fallback={<p className="text-gray-500">Loading latest stories...</p>}>
+        <Articles />
+      </Suspense>
+      
+
+      <ThemeSwitcher></ThemeSwitcher>
     </main>
   );
 }
