@@ -4,6 +4,7 @@
 
 - make articles render page
 - make admin dashboard for inputting articles
+- check articles page mobile
 
 ## Clone and run locally
 

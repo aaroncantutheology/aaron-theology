@@ -58,7 +58,7 @@ export default async function Home() {
         {/* 3. The Text Container (Top layer) */}
         <div className="absolute inset-0 z-20 flex items-center justify-center text-white">
           <h1 className="text-4xl font-bold tracking-wide drop-shadow-lg">
-            Aaron Cantu's Blog
+            Aaron Cantu&apos;s Blog
           </h1>
         </div>
       </div>
