@@ -9,7 +9,7 @@ export default function Navbar() {
           href="/" 
           className="text-xl font-bold tracking-tight text-slate-900 hover:text-slate-700 transition-colors"
         >
-          Aaron&apos;s Blog
+          Dad&apos;s Blog
         </Link>
 
         {/* Navigation Links */}
