@@ -42,7 +42,6 @@ export async function insertPost(prevState, formData) {
   const author_id = authors.data[0].id
 
   const tagsArray = tagsString ? JSON.parse(tagsString) : [];
-  console.log(tagsArray)
 
   const { data, error } = await supabase
     .from('articles')
