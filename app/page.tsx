@@ -1,5 +1,3 @@
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { Suspense } from "react";
 import ArticleCard from "@/components/article-card";
@@ -8,14 +6,13 @@ async function Posts() {
   const supa = await createClient()
 
   const { data : posts, error } = await supa.from("articles").select("id, title, slug, authors:author_id(name)").limit(10)
-  console.log(posts)
 
   if (error) {
     console.log(error)
   }
 
   return (
-      <div className="grid grid-cols-1 md:grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts?.map((post) => {
           
           {/* @ts-ignore */}
@@ -37,14 +34,11 @@ export default async function Home() {
   
 
   return (
-    <main className="min-h-screen flex flex-col items-center">
+    <main className="p-6 max-w-5xl mx-auto">
       {/* Article Display */}
       <Suspense fallback={<p className="text-gray-500">Loading latest stories...</p>}>
         <Posts />
       </Suspense>
-      
-
-      <ThemeSwitcher></ThemeSwitcher>
     </main>
   );
 }

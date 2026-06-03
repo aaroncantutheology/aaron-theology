@@ -9,7 +9,7 @@ export default function TaggedPage({
   params: Promise<{ slug?: string[] }>
 }) {
     return (
-        <main className="p-6 max-w-4xl mx-auto">
+        <main className="p-6 max-w-5xl mx-auto">
             <h1 className="text-3xl font-bold mb-6">Explore by Tags</h1>
             
             {/* The Suspense boundary now protects the page from BOTH params and cookies */}

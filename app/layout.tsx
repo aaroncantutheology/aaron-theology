@@ -48,19 +48,12 @@ export default function RootLayout({
           {/* 3. The Text Container (Top layer) */}
           <div className="absolute inset-0 z-20 flex items-center justify-center text-white">
             <h1 className="text-4xl font-bold tracking-wide drop-shadow-lg">
-              Aaron Cantu&apos;s Blog
+              Aaron Cantu Theology
             </h1>
           </div>
         </div>
         <Navbar />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        {children}
       </body>
     </html>
   );

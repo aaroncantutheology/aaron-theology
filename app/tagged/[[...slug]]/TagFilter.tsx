@@ -72,9 +72,9 @@ export default function TagFilter({ allTags, initialTag }: TagFilterProps) {
                         <button
                             key={idx}
                             onClick={() => toggleTag(tag)}
-                            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors border ${
+                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors border ${
                                 isSelected 
-                                    ? "bg-indigo-600 text-white border-indigo-600 hover:bg-indigo-700" 
+                                    ? "bg-gray-600 text-white border-gray-600 hover:bg-gray-700" 
                                     : "bg-white text-slate-700 border-slate-300 hover:bg-slate-50"
                             }`}
                         >
@@ -89,7 +89,7 @@ export default function TagFilter({ allTags, initialTag }: TagFilterProps) {
                 {loading ? (
                     <p className="text-slate-500 animate-pulse">Fetching articles...</p>
                 ) : articles.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {articles.map((article) => (
                             <ArticleCard
                                 key={article.id}
