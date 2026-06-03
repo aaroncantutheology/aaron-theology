@@ -26,7 +26,7 @@ export default function TagFilter({ allTags, initialTag }: TagFilterProps) {
             if (selectedTags.length === 0) {
                 const { data, error } = await supabase
                 .from('articles')
-                .select('*')
+                .select('*, authors:author_id(name)')
 
                 setArticles(data);
                 return;
@@ -38,7 +38,8 @@ export default function TagFilter({ allTags, initialTag }: TagFilterProps) {
             // If your 'tags' column is a single string, change `.overlaps` to `.in('tags', selectedTags)`
             const { data, error } = await supabase
                 .from('articles')
-                .select('*')
+                .select('*, authors:author_id(name)')
+                // or .contains for AND
                 .overlaps('tags', selectedTags); 
 
             if (error) {
@@ -94,7 +95,7 @@ export default function TagFilter({ allTags, initialTag }: TagFilterProps) {
                             <ArticleCard
                                 key={article.id}
                                 title={article.title}
-                                author={'Aaron Cantu'}
+                                author={article.authors?.name}
                                 slug={article.slug}
                             />
                         ))}

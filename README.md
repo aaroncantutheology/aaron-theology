@@ -4,9 +4,6 @@
 
 - need to get author names on tagged page
 - footer
-- tags?
-  - tag assignment admin dashboard
-  - need to fix form to push tags to insert server
 
 ## Clone and run locally
 
