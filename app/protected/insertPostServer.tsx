@@ -10,24 +10,26 @@ export async function insertPost(prevState, formData) {
   const author = formData.get('author');
   const content = formData.get('content');
   const tagsString = formData.get('tags');
+  const slug = formData.get('slug');
   
   // 1. Bundle the values so we can return them if something fails
   const submittedValues = {
     title: title || '',
     author: author || '',
-    content: content || ''
+    content: content || '',
+    slug: slug || ''
   };
 
   // Basic Validation
   if (!title || !content || !author) {
     return { 
       success: false, 
-      message: 'Title, Author, and Content are required.',
+      message: 'Title, Author, Slug, and Content are required.',
       values: submittedValues // <--- Return values here
     };
   }
 
-  const authors = await supabase.from('authors').select('name').eq('name', author)
+  const authors = await supabase.from('authors').select('id').eq('name', author)
 
   if (authors !== null && authors.data.length == 0) {
     return { 
@@ -37,12 +39,15 @@ export async function insertPost(prevState, formData) {
     };
   }
 
+  const author_id = authors.data[0].id
+
   const tagsArray = tagsString ? JSON.parse(tagsString) : [];
+  console.log(tagsArray)
 
   const { data, error } = await supabase
     .from('articles')
     .insert([
-      { title, content, author, tags: tagsArray },
+      { title, content, author_id, slug, tags: tagsArray },
     ]);
 
   if (error) {

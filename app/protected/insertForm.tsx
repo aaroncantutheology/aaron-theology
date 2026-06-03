@@ -48,6 +48,19 @@ export default function NewPostForm() {
           />
         </div>
 
+        <div className="flex flex-col">
+          <label htmlFor="slug" className="font-semibold mb-1">Slug</label>
+          <input 
+            type="text" 
+            id="slug" 
+            name="slug"
+            required 
+            // Add defaultValue right here:
+            defaultValue={state?.values?.author || ''} 
+            className="border border-gray-300 p-2 rounded text-black"
+          />
+        </div>
+
         <TagInput key={tagResetKey} />
 
         <div className="flex flex-col">

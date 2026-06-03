@@ -2,13 +2,11 @@
 
 ## Todo
 
-- make admin dashboard for inputting articles!
-- navbar
-- we can do one BIG article, then littel ones on home
+- need to get author names on tagged page
 - footer
 - tags?
-  - view/search by tag
   - tag assignment admin dashboard
+  - need to fix form to push tags to insert server
 
 ## Clone and run locally
 
