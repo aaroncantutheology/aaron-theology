@@ -21,10 +21,10 @@ export default function Navbar() {
             Articles
           </Link>
           <Link 
-            href="/about" 
+            href="/auth/login" 
             className="hover:text-slate-900 transition-colors"
           >
-            About
+            Write
           </Link>
         </div>
       </div>
