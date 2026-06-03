@@ -9,7 +9,7 @@ export default function ProtectedLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen flex flex-col items-center">
+    <main className="flex flex-col items-center">
               <Suspense>
                 <AuthButton />
               </Suspense>
