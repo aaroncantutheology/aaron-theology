@@ -24,7 +24,7 @@ async function BlogPostContent({ paramsPromise }: { paramsPromise : Promise<{ sl
   const supa = createClient()
   const { data: post, error } = await supa
     .from("articles")
-    .select('title, published_on, content, authors:author_id(name)')
+    .select('title, published_on, content, authors:author_id(name), tags')
     .eq("slug", slug)
     .single()
 
@@ -39,6 +39,17 @@ async function BlogPostContent({ paramsPromise }: { paramsPromise : Promise<{ sl
       <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 md:text-5xl mb-4">
         {post.title}
       </h1>
+
+      <div className="text-sm text-slate-500 mb-6">
+        {/* @ts-ignore */}
+        Tags: <span>
+          {post.tags.map((tag, idx) => (
+            <a key={idx} href={`/tagged/${tag}`} className="mr-1 font-semibold text-slate-800 hover:underline cursor-pointer">
+              {tag}
+          </a>))}
+          
+        </span>
+      </div>
       
       {/* Author / Meta */}
       <div className="text-sm text-slate-500 mb-6">

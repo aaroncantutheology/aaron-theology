@@ -2,9 +2,13 @@
 
 ## Todo
 
-- make articles render page
-- make admin dashboard for inputting articles
-- check articles page mobile
+- make admin dashboard for inputting articles!
+- navbar
+- we can do one BIG article, then littel ones on home
+- footer
+- tags?
+  - view/search by tag
+  - tag assignment admin dashboard
 
 ## Clone and run locally
 
